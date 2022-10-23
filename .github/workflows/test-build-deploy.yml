@@ -11,24 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@master
 
-      - name: Configure Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '11'
-
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
-  
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.1
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.      
-          clean: true
-          clean-exclude:
-            cname
-            examples/*.*
+      - name: Build and Deploy
+        uses: ./.github/actions/deploy
+        env:
+            COMMIT_EMAIL: 1@1.ru 
+            COMMIT_NAME: testoname
+            ACCESS_TOKEN: ${{ secrets.PORTFOLIO }}
+            BASE_BRANCH: prod
+            DEPLOY_BRANCH: gh-pages
+            BUILD_SCRIPT: npm ci && npm run build
+            FOLDER: build
