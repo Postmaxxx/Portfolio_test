@@ -1,0 +1,25 @@
+name: Portfolio Page Build & Deploy
+run-name: ${{ github.actor }} updated Portfolio Page
+on:
+  push:
+    branches:
+      - prod
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: Build and Deploy
+        uses: ./.github/actions/deploy
+        env:
+            COMMIT_EMAIL: 1@1.ru 
+            COMMIT_NAME: testoname
+            ACCESS_TOKEN: ${{ secrets.PORTFOLIO }}
+            BASE_BRANCH: prod
+            DEPLOY_BRANCH: gh-pages
+            BUILD_SCRIPT: npm ci && npm run build
+            FOLDER: build
