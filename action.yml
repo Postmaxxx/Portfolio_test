@@ -11,7 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v1
+
+      - name: Configure Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '11'
 
       - name: Build and Deploy
         uses: ./.github/actions/deploy
