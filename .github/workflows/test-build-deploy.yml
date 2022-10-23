@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} updated Portfolio Page
 on:
   push:
     branches:
-      - master
+      - prod
 permissions:
   contents: write
 jobs:
